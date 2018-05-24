@@ -11,36 +11,35 @@ public class RpsRunner {
         String scannedName = scanner.nextLine();
         game.greetingRpsMethod(scannedName);
         int numberOfVictories;
-        System.out.println(game.toString());
         
         boolean end = false;
 
         while (end==false) {
-            System.out.println("Co chcesz zrobic?");
+        	game.printOptions();
             String thisAction= game.getUser().userAction(scanner.next());
             scanner.nextLine();
             if (thisAction.equals("n")){
-            	game.getRpsRound().setUserWinCounter(0);
-            	game.getRpsRound().setCompWinCounter(0);
-            	game.getRpsRound().setRoundCounter(0);
-            	System.out.println("Podaj ilosc zwyciêstw wymaganych do zkoñczenia rundy: ");
+            	game.newGame();
             	String nrOfVicts = scanner.nextLine();
-            	numberOfVictories = Integer.parseInt(nrOfVicts);
-            	if (numberOfVictories>0&&numberOfVictories<=10)	game.setVictoriesInTheRound(numberOfVictories);
-            	else {
-            		System.out.println("Wpisana wartosc jest z poza zakresu 1-10 lub ma nieprawidlowy format.");
+            	try {
+            		numberOfVictories = Integer.parseInt(nrOfVicts);
+            	} catch (NumberFormatException e) {
+            		System.out.println("Wpisana wartosc ma nieprawidlowy format. Wpisz wartosc od 1 do 10");
             		continue;
             	}
-            	boolean userWins=true;
-            	boolean compWins=true;
+            	if (game.setVictoriesInTheRound(numberOfVictories)) {
+            		boolean userWins=true;
+            		boolean compWins=true;
             	
-            	while (userWins&&compWins) {   		
-            		System.out.println("Wykonaj swoj ruch:");
-            		String userAction = scanner.nextLine();
-            		game.theGame(userAction);
-            		userWins=!(game.getRpsRound().getUserWinCounter()>=numberOfVictories);
-            		compWins=!(game.getRpsRound().getCompWinCounter()>=numberOfVictories);
-            	}
+            		while (userWins&&compWins) {   		
+            			System.out.println("Wykonaj swoj ruch:");
+            			String userAction = scanner.nextLine();
+            			game.theGame(userAction);
+            			userWins=!(game.getRpsRound().getUserWinCounter()>=numberOfVictories);
+            			compWins=!(game.getRpsRound().getCompWinCounter()>=numberOfVictories);
+            		}
+            	} else continue;
+            	
             } else if (thisAction.equals("x")){
                 System.out.println("Czy jestes pewien, ze chcesz zakonczyc gre? 't' - Tak, 'n' - Nie");
                 String endingAction = game.getUser().userAction(scanner.next());

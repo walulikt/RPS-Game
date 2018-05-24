@@ -46,18 +46,32 @@ public class RpsGame {
         System.out.println("Witaj w grze " + user.getUserName());
     }
     
-    public void setVictoriesInTheRound (int numberOfVictories) {
-        rpsRound.setRound(numberOfVictories);
+    public boolean setVictoriesInTheRound (int numberOfVictories) {
+    	if (numberOfVictories>0&&numberOfVictories<=10) {
+    		rpsRound.setRound(numberOfVictories);
+    		return true;
+    	} else {
+    		System.out.println("Wpisana wartosc jest z poza zakresu 1-10");
+    		return false;
+    	}
     }
 
-    @Override
-    public String toString() {
-        return "W grze RPS dostepne sa nastepujace opcje: \n"+
+    public void printOptions() {
+    	System.out.println("\nW grze RPS dostepne sa nastepujace opcje: \n"+
         		"Klawisz: n - rozpocznij nowa gra \n"+
-                "Klawisz: " + ROCK + " - zagranie: 'kamien' \n" +
+                "Klawisz: x - zakonczenie gry \n" +
+                "Ktora opcje wybierasz? :");
+    }
+    
+    public void newGame() {
+    	System.out.println("Mozliwe zagrania \n"+
+    			"Klawisz: " + ROCK + " - zagranie: 'kamien' \n" +
                 "Klawisz: " + PAPER + " - zagranie: 'papier' \n" +
-                "Klawisz: " + SCISSORS + " - zagranie: 'nozyczki' \n" +
-                "Klawisz: x - zakonczenie gry \n";
+                "Klawisz: " + SCISSORS + " - zagranie: 'nozyczki' ");
+    	getRpsRound().setUserWinCounter(0);
+    	getRpsRound().setCompWinCounter(0);
+    	getRpsRound().setRoundCounter(0);
+    	System.out.println("Na poczatek podaj ilosc zwyciêstw wymaganych do zkoñczenia rundy: ");
     }
 
     public void printRoundResult(){
@@ -70,10 +84,8 @@ public class RpsGame {
             printRoundResult();
             if (rpsRound.getUserWinCounter()==rpsRound.getRound()){
                 System.out.println ("****** Ta rozgrywke wygral " + user.getUserName()+ " z wynikiem: " + rpsRound.getUserWinCounter() +" do " +rpsRound.getCompWinCounter() +" ******");
-                System.out.println(toString());
             } else if (rpsRound.getCompWinCounter()==rpsRound.getRound()) {
                 System.out.println("****** Ta rozgrywke wygral KOMPUTER z wynikiem: " + rpsRound.getUserWinCounter() + " do " + rpsRound.getCompWinCounter() + " ******");
-                System.out.println(toString());
             }
         }
     
