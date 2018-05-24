@@ -53,11 +53,11 @@ public class RpsGame {
     @Override
     public String toString() {
         return "W grze RPS dostepne sa nastepujace opcje: \n"+
+        		"Klawisz: n - rozpocznij nowa gra \n"+
                 "Klawisz: " + ROCK + " - zagranie: 'kamien' \n" +
                 "Klawisz: " + PAPER + " - zagranie: 'papier' \n" +
                 "Klawisz: " + SCISSORS + " - zagranie: 'nozyczki' \n" +
-                "Klawisz: x - zakonczenie gry \n" +
-                "Klawisz: n - rozpocznij nowa gra \n";
+                "Klawisz: x - zakonczenie gry \n";
     }
 
     public void printRoundResult(){

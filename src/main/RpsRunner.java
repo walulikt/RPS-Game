@@ -24,9 +24,13 @@ public class RpsRunner {
             	game.getRpsRound().setCompWinCounter(0);
             	game.getRpsRound().setRoundCounter(0);
             	System.out.println("Podaj ilosc zwyciêstw wymaganych do zkoñczenia rundy: ");
-            	numberOfVictories = scanner.nextInt();
-            	scanner.nextLine();
-            	game.setVictoriesInTheRound(numberOfVictories);
+            	String nrOfVicts = scanner.nextLine();
+            	numberOfVictories = Integer.parseInt(nrOfVicts);
+            	if (numberOfVictories>0&&numberOfVictories<=10)	game.setVictoriesInTheRound(numberOfVictories);
+            	else {
+            		System.out.println("Wpisana wartosc jest z poza zakresu 1-10 lub ma nieprawidlowy format.");
+            		continue;
+            	}
             	boolean userWins=true;
             	boolean compWins=true;
             	
